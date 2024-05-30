@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Categories</title>
+</head>
+<body>
+<h1 th:text="${title}">All Categories</h1>
+<ul>
+    <li th:each="category : ${categories}" th:text="${category.name}"></li>
+</ul>
+<a th:href="@{/eventCategories/create}">Add New Category</a>
+</body>
+</html>
