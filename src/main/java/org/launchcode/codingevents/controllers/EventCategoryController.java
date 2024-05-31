@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/**
+ * Created by Chris Bay
+ */
 @Controller
 @RequestMapping("eventCategories")
 public class EventCategoryController {
@@ -20,32 +23,32 @@ public class EventCategoryController {
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
 
-    // Display all event categories
     @GetMapping
-    public String displayAllEventCategories(Model model) {
+    public String displayAllCategories(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", eventCategoryRepository.findAll());
         return "eventCategories/index";
     }
 
-    // Display the form for creating a new event category
     @GetMapping("create")
     public String renderCreateEventCategoryForm(Model model) {
-        model.addAttribute("title", "Create Event Category");
+        model.addAttribute("title", "Create Category");
         model.addAttribute(new EventCategory());
         return "eventCategories/create";
     }
 
-    // Process the form for creating a new event category
     @PostMapping("create")
-    public String processCreateEventCategoryForm(@ModelAttribute @Valid EventCategory newEventCategory,
+    public String processCreateEventCategoryForm(@Valid @ModelAttribute EventCategory eventCategory,
                                                  Errors errors, Model model) {
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Category");
+            model.addAttribute(new EventCategory());
             return "eventCategories/create";
         }
 
-        eventCategoryRepository.save(newEventCategory);
-        return "redirect:/eventCategories";
+        eventCategoryRepository.save(eventCategory);
+        return "redirect:";
     }
+
 }
